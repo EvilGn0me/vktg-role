@@ -1,0 +1,25 @@
+---
+- name: install epel-release
+  yum:
+    name: 'epel-release'
+    state: latest
+
+- name: install remi repo
+  yum:
+    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    state: present
+
+- name: enable remi repo
+  yum_repository:
+    name: remi-php71
+    baseurl: 'http://rpms.remirepo.net/enterprise/7/php71/$basearch/'
+    description: 'Remi PHP 7.1 RPM repository for Enterprise Linux 7 - $basearch'
+    enabled: true
+    gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi'
+
+- name: install php packages
+  yum:
+    name: '{{ item }}'
+    state: latest
+  with_items:
+    - '{{ vktg.packages }}'

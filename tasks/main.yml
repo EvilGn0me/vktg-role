@@ -1,0 +1,39 @@
+---
+# tasks file for vktg-role
+
+- name: pre-requisites tasks
+  import_tasks: redhat.yml
+  when: ansible_os_family|lower == 'redhat'
+
+- name: clone vk-tg-bot
+  git:
+    repo: '{{ vktg.repo }}'
+    dest: '{{ vktg.install_dir }}'
+    accept_hostkey: true
+    force: yes
+    update: yes
+    version: '{{ vktg.branch}}'
+
+- name: download composer installer
+  get_url:
+    url: 'https://getcomposer.org/installer'
+    dest: '/tmp/composer-setup.php'
+
+- name: install composer
+  shell: 'php /tmp/composer-setup.php --install-dir=/usr/local/bin'
+
+- name: install deps for vk-tg-bot
+  shell: 'composer.phar install --no-dev --optimize-autoloader'
+  args:
+    chdir: '{{ vktg.install_dir }}'
+
+- name: manage vktg config file
+  template:
+    src: 'templates/config.php'
+    dest: '/opt/vktg/app/Config.php'
+
+- name: enabling cronjob
+  cron:
+    name: 'repost to tg'
+    minute: '*/5'
+    job: 'cd {{ vktg.install_dir }} && php index.php >> /dev/null 2>&1'

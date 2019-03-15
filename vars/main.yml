@@ -1,0 +1,12 @@
+---
+# vars file for vktg-role
+vktg:
+  install_dir: '/opt/vktg'
+  repo: 'https://github.com/lgg/vk-to-telegram-bot.git'
+  branch: 'master'
+  packages:
+    - php
+    - php-curl
+    - php-json
+    - php-mbstring
+    - php-pdo

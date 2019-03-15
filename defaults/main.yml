@@ -1,0 +1,9 @@
+---
+# defaults file for vktg-role
+vktg_config:
+  vk_id: 'user or group id goes here'
+  vk_token: 'service access key here'
+  tg_token: 'your bot access token here'
+  tg_name: 'your bot name here'
+  tg_chat: 'your telegram chat or channel'
+  name: 'bot name for text messages'
