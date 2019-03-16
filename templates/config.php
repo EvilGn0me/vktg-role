@@ -11,17 +11,17 @@ class Config
             "t_name" => "{{ vktg_config.tg_name }}",
             "t_chat" => "{{ vktg_config.tg_chat }}",
             "messageSend" => [
-                "disable_web_page_preview" => false,
-                "disable_notification" => false
+                "disable_web_page_preview" => {{ vktg_config.web_page_preview }},
+                "disable_notification" => {{ vktg_config.text_notification }}
             ],
             //Bot-manager settings
             //Bot-manager reposting params(modes)
             "extended" => [
-                "active" => true,
-                "needLinkToVKPost" => true,
+                "active" => {{ vktg_config.active }},
+                "needLinkToVKPost" => {{ vktg_config.linktovkpost }},
                 "needFromText" => [
-                    "withLink" => true,
-                    "prepend" => true,
+                    "withLink" => {{ vktg_config.textwithlink }},
+                    "prepend" => {{ vktg_config.prepend }},
                     "customName" => "{{ vktg_config.name }}"
                 ],
                 "resendAttachments" => true,

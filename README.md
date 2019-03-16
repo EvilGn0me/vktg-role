@@ -8,8 +8,13 @@ It supports only Centos 7 for now. Also remi php repo will be installed.
 
 How to use:
 =========
+First you need to set in your ansible.cfg:
+```
+hash_behaviour = merge
+```
+
 You need to change vktg_config array for variables needed for bot to work.
-Variables are self explanatory.
+Variables are self explanatory. These are only ones which needed to bot to work, for other variables please check defaults/main.yml.
 
 ```
 vktg_config:
